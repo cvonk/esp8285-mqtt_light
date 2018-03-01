@@ -77,7 +77,7 @@ uint8_t const GREENLED_PIN = 13;  /* on when 0 */
 uint8_t const REDLED_AND_RELAY_PIN = 12;
 
 static bool
-_getRelay() {
+_getRelay(void) {
 	return digitalRead(REDLED_AND_RELAY_PIN);
 }
 
@@ -86,8 +86,10 @@ _setRelay(bool const value) {
 	digitalWrite(REDLED_AND_RELAY_PIN, value);
 }
 
+static void _showStatus(void);
+	
 static void 
-_toggleRelay() {
+_toggleRelay(void) {
 	Serial.println("toggle relay");
 	bool const value = !_getRelay();
 	_setRelay(value);
@@ -97,12 +99,12 @@ _toggleRelay() {
 
 static volatile bool _buttonChanged;
 
-void _buttonChangedISR() {
+void _buttonChangedISR(void) {
 	_buttonChanged = true;
 }
 
 static void 
-_handleButtonChanged()
+_handleButtonChanged(void)
 {
 	static int lastButtonState = HIGH;
 	int currentState = digitalRead(BUTTON_PIN);
@@ -146,7 +148,7 @@ _handleButtonChanged()
 char const * const SPIFF_FNAME = "/config.json";
 
 static int
-_mqttReadCfg()
+_mqttReadCfg(void)
 {
 	Serial.print("loading config ..");
 
@@ -187,7 +189,7 @@ _mqttReadCfg()
 static WiFiManagerParameter * _params;
 
 static void
-_mqttWriteCfg()
+_mqttWriteCfg(void)
 {
 	Serial.print("writing config .. ");
 	DynamicJsonBuffer jsonBuffer;
@@ -215,7 +217,7 @@ _mqttWriteCfg()
 }
 
 static void
-_mqtt_reconnect()  // an async alternative is mqtt_reconnect_nonblocking
+_mqtt_reconnect(void)  // an async alternative is mqtt_reconnect_nonblocking
 {
 	setStatusLED(STATUS_NO_MQTT);
 
@@ -245,7 +247,7 @@ _mqtt_callback(char * topic, byte * payload, unsigned int length)
  */
 
 static void
-_showStatus()
+_showStatus(void)
 {
 	bool const wifiConnected = WiFi.status() == WL_CONNECTED;
 	bool const mqttConnected = _mqtt.client.connected();
@@ -258,7 +260,7 @@ _showStatus()
 }
 
 static void
-_restart()
+_restart(void)
 {
 	Serial.println("RESTART");
 	_setRelay(false);
@@ -267,7 +269,7 @@ _restart()
 }
 
 static void
-_reset()
+_reset(void)
 {
 	Serial.println("RESET");
 	_setRelay(false);
@@ -280,7 +282,7 @@ _reset()
 }
 
 static void
-_initTime()
+_initTime(void)
 {
 	int const TZ = -8;  // US Pacific (non-DST)
 	configTime(TZ * 3600, 0, "pool.ntp.org", "time.nist.gov");
@@ -297,7 +299,7 @@ _initTime()
 MDNSResponder g_mdns;
 
 void
-setup()
+setup(void)
 {
 	pinMode(GREENLED_PIN, OUTPUT);
 	pinMode(REDLED_AND_RELAY_PIN, OUTPUT);
@@ -350,7 +352,7 @@ setup()
 }
 
 void
-loop() 
+loop(void) 
 {
 	WiFiConnect::handle();
 
