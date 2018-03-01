@@ -34,14 +34,14 @@
 
 #include "statusled.h"
 #include <Arduino.h>
-#include <ESP8266WiFi.h>        // http://arduino.esp8266.com/stable/package_esp8266com_index.json (board manager)
+#include <ESP8266WiFi.h>        /* http://arduino.esp8266.com/stable/package_esp8266com_index.json (board manager) */
 #include <ESP8266mDNS.h>
 #include <ESP8266WebServer.h>
 #include <WiFiUdp.h>
-#include <WiFiManager.h>        // https://github.com/tzapu/WiFiManager
-#include <PubSubClient.h>       // https://github.com/knolleary/pubsubclient 
+#include <WiFiManager.h>        /* https://github.com/tzapu/WiFiManager */
+#include <PubSubClient.h>       /* https://github.com/knolleary/pubsubclient */
 #include <time.h>
-#include <Fatal.h>              // https://github.com/cvonk/ESP8266_Fatal
+#include <Fatal.h>              /* https://github.com/cvonk/ESP8266_Fatal */
 #include "wificonnect.h"
 #include "statusled.h"
 
