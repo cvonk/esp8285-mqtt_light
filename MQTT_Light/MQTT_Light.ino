@@ -80,7 +80,7 @@ uint8_t const BUTTON_PIN = 0;
 uint8_t const GREENLED_PIN = 13;  /* on when 0 */
 uint8_t const REDLED_AND_RELAY_PIN = 12;
 
-static bool
+static int
 _getRelay(void) {
 	return digitalRead(REDLED_AND_RELAY_PIN);
 }
@@ -99,9 +99,9 @@ _toggleRelay(void) {
 	_showStatus();
 }
 
-static volatile bool _buttonChanged;
+static bool volatile _buttonChanged;
 
-void _buttonChangedISR(void) {
+static void _buttonChangedISR(void) {
 	_buttonChanged = true;
 }
 
