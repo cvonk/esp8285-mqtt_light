@@ -1,5 +1,5 @@
 # configuration file for Travis CI
-# 2018, Coert Vonk
+# 2018, Coert Vonk 
 
 language: c
 before_install:
