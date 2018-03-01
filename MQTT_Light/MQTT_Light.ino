@@ -46,7 +46,8 @@
 #include "statusled.h"
 
 #pragma GCC diagnostic error "-Wall"
-#pragma GCC diagnostic error "-Wextra"
+//#pragma GCC diagnostic error "-Wextra"
+#pragma GCC diagnostic ignored "-Wpedantic"
 
 /*
  * Vars
