@@ -80,8 +80,7 @@ uint8_t const BUTTON_PIN = 0;
 uint8_t const GREENLED_PIN = 13;  /* on when 0 */
 uint8_t const REDLED_AND_RELAY_PIN = 12;
 
-static boolean
-_getRelay(void) {
+static boolean _getRelay(void) {
 	return digitalRead(REDLED_AND_RELAY_PIN);
 }
 
@@ -99,9 +98,10 @@ _toggleRelay(void) {
 	_showStatus();
 }
 
-static boolean volatile _buttonChanged; 
+static volatile boolean _buttonChanged; 
 
-static void _buttonChangedISR(void) {
+static void 
+_buttonChangedIsr(void) {
 	_buttonChanged = true;
 }
 
@@ -349,7 +349,7 @@ setup(void)
 		_mqtt.client.setCallback(_mqtt_callback);
 	}
 
-	attachInterrupt(BUTTON_PIN, _buttonChangedISR, CHANGE);
+	attachInterrupt(BUTTON_PIN, _buttonChangedIsr, CHANGE);
 	_showStatus();
 }
 
