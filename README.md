@@ -1,5 +1,7 @@
 # Itead Sonoff S20 + MQTT + Google Assistant [![Build Status](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg?branch=master)](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg/)
 
+The gist: the IoT device speaks MQTT and is trusted. No auth, no encryption.  Nice and simple.
+
 This is a follow-up from [Talk to your CD player using Google Home](https://coertvonk.com/sw/embedded/google-home-ifttt-esp8266-integration-23066).  This time aroud, we use the light and elegant MQTT protocol to control a Itead Sonoff S20 power switch. To top it off, we hook it up to the Google Assistant eco system.
 
 Features:
@@ -15,8 +17,8 @@ This firmware lets you control the Sonoff S20 using the MQTT protocol.  Indirect
 Hardware:
 
 * do not connect to mains while the cover is off!
-* connect a FTDI interface to the RX, TX and GND pins
-* connect a 3.3V power supply to the VCC and GND pins
+* connect TX, RX and GND from the SONOFF S20 to respectively the RX, TX and GND of a FTDI interface
+* connect VCC and GND to a 3.3V power supply (FTDI lacks current)
 * [hardware details](https://www.itead.cc/wiki/S20_Smart_Socket)
 
 Libraries
@@ -37,6 +39,24 @@ Compile:
 * the upload is touchy.  Power off; press upload; press the button, and power up when the IDE says uploading
 * from here on, open the Serial monitor to keep an eye on things.
 
+Install Eclipse `ponte` and `mosquitto`:
+
+MQTT plays a major role in standardizing M2M communications as a light weight protocol.  To make the MQTT topics available to the WWW, we need the broker to bridge to a protocol such as HTTP. Eclipse Ponte is such a broker and bridge. It is build on node.js, the JavaScript runtime from Chrome's JavaScript engine.  
+
+Start by installing node.js, and updating its package manager
+
+	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+	sudo apt-get install -y nodejs
+	node -v
+	npm update
+	
+Install ponte
+
+	npm install ponte -g $ ponte  #install
+	ponte -v
+
+Install mosquitto as well, as we will use its publish and subscribe clients.
+
 Configuration:
 
 * initially, the green LED will blink 3 times every second to indicate that it is in WiFi AP mode for configuration
@@ -44,7 +64,7 @@ Configuration:
 * using the web page, configure WiFi SSID and password, and MQTT parameters.  Let's assume the topic is "room/lamp".
 * this should connect the ESP to your usual WiFi.  The green LED will first blink 2 times (every second) to indicate that it is connecting to your WiFi router. 
 * once connected to WiFi, the green LED will change to 1 blink (every second) to indicate it is connecting to the MQTT broker.
-* run Eclipse "ponte" on e.g. raspberry pi (rpi).  "ponte" is a MQTT broker, but can also be accessed using HTTP
+* run Eclipse `ponte` on e.g. raspberry pi (rpi). 
 * once connected to the MQTT broker, the green LED will go off.
 
 Testing:
