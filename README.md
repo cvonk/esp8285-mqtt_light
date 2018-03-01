@@ -1,14 +1,14 @@
 # Rotary Encoder for Arduino101  [![Build Status](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg?branch=master)](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg/)
 
-## Control your $10 Sonoff S20 using MQTT
-
-This firmware lets you control the Sonoff S20 using the MQTT protocol.  Indirectly, this allows Google Assistant to change the status of your S20 power socket.
-
 Features:
 
 * initial configuration using WiFi AP mode (WiFiManager)
-* recovers from WiFi and MQTT broker outages
+* resillent to WiFi and MQTT broker outages
 * clear status codes using green LED
+
+## Control your $10 Sonoff S20 using MQTT
+
+This firmware lets you control the Sonoff S20 using the MQTT protocol.  Indirectly, this allows Google Assistant to change the status of your S20 power socket.
 
 Hardware:
 
@@ -31,21 +31,25 @@ Configuration:
 
 * initially, the green LED will blink 3 times every second to indicate that it is in WiFi AP mode for configuration
 * use your phone or laptop to connect to the ESP* access point, this should bring you to the configuration page. (if not, browse to  192.168.4.1 by hand)
-* using the web page, configure WiFi SSID and password, and MQTT parameters
+* using the web page, configure WiFi SSID and password, and MQTT parameters.  Let's assume the topic is "room/lamp".
 * this should connect the ESP to your usual WiFi.  The green LED will first blink 2 times (every second) to indicate that it is connecting to the your WiFi router. 
 * once connected to WiFi, the green LED will change to 1 blink (every second) to indicate it is connecting to the MQTT broker.
+* run Eclipse "ponte" on e.g. raspberry pi (rpi).  "ponte" is a MQTT broker, but can also be accessed using HTTP
 * once connected to the MQTT broker, the green LED will go off.
 
-Testing:
+Testing :
 
-* run Eclipse ponte on e.g. raspberry pi (rpi)
 * use Eclipse mosquitto_sub on a rpi to subscribe to the MQTT topic. Press the button on the S20, and the red LED and relay should go on and the mosquitto_sub should show the value "on".  Press the button again to power it off.
 * use Eclipse mosquitto_pub on a rpi to publish the value "on" to the MQTT topic.  The red LED and relay should go on.
 * use Eclipse mosquitto_pub on a rpi to publish the value "off" to the MQTT topic.  The red LED and relay should go off.
 
-Making it available to the internet
+## Making it available to the internet
 
-* on your router use the remote proxy pound with e.g. a LetsEncrypt certificate, to translate between HTTPS and HTTP, and route the traffic URLs starting with /resources to ponte.  Remember to 
+Configuration
+
+* on your router use the remote proxy pound with e.g. a LetsEncrypt certificate, to translate between HTTPS and HTTP, and route the traffic URLs starting with /resources to ponte.  See [pound and letsencrypt](https://coertvonk.com/sw/networking/dd-wrt-reverse-proxy-https-asus-rt-ac68-pound-letsencrypt-23660).
+* 
+
 
 
 	STATUS_OK = 0,
