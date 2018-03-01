@@ -105,6 +105,8 @@ Testing:
 
 ## Diagnostic
 
+If for whatever reason the code causes an exception, changes are that it is caught and accessible through its web interface on next boot.  Assuming the ip address of the device is 10.0.1.123, you would access the stack traces as `http://10.0.1.123/fatal`  The stack traces can be decoded to symbolic information using the [Esp Exception Decoder](https://github.com/me-no-dev/EspExceptionDecoder).
+
 Status codes, indicated by blinking the green LED
 
 	STATUS_OK = 0,
