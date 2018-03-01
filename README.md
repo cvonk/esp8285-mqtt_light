@@ -1,5 +1,7 @@
 # Rotary Encoder for Arduino101  [![Build Status](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg?branch=master)](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg/)
 
+This is a follow-up from [Talk to your CD player using Google Home](https://coertvonk.com/sw/embedded/google-home-ifttt-esp8266-integration-23066).  This time we use the light and elegant MQTT protocol to control a S20 power switch.
+
 Features:
 
 * initial configuration using WiFi AP mode (WiFiManager)
@@ -37,7 +39,7 @@ Configuration:
 * run Eclipse "ponte" on e.g. raspberry pi (rpi).  "ponte" is a MQTT broker, but can also be accessed using HTTP
 * once connected to the MQTT broker, the green LED will go off.
 
-Testing :
+Testing:
 
 * MQTT subscribe
    * Use Eclipse `mosquitto_sub -t room/lamp` on a rpi to subscribe to the MQTT topic. 
@@ -51,14 +53,20 @@ Testing :
 * HTTP PUT   
    * On the rpi, use `curl -X PUT -d on http://localhost:3000/resources/room/lamp` to set the value of the red LED and relay.
 
+The button on the Sonoff S20: 
+
+* short press will toggle the red LED and relay
+* 2 second press will restart the Sonoff S20
+* 10 second press will reset the configuration
+
 ## Making it available to the internet
 
-Configuration
+Configuration:
 
 * Create an A record on a DNS server to point to your router, or use a DDNS name.  E.g. "house.domain.com".
-* On your router use the remote proxy pound with e.g. a LetsEncrypt certificate, to translate between HTTPS and HTTP, and route the traffic URLs "//resources.*" to port 3000 on the rpi.  [pound and letsencrypt](https://coertvonk.com/sw/networking/dd-wrt-reverse-proxy-https-asus-rt-ac68-pound-letsencrypt-23660).  Add "xHTTP 1" inside the "ListenHTTPS" in the `pound.pt1` configuration file to allow for HTTP GET.
+* On your router use the remote proxy pound with e.g. a LetsEncrypt certificate, to translate between HTTPS and HTTP, and route the traffic URLs "//resources.*" to port 3000 on the rpi.  For details, see my [Pound and LetsEncrypt](https://coertvonk.com/sw/networking/dd-wrt-reverse-proxy-https-asus-rt-ac68-pound-letsencrypt-23660).  Add "xHTTP 1" inside the "ListenHTTPS" in the `pound.pt1` configuration file to allow for HTTP GET.
 
-Test
+Testing:
 
 * HTTP GET
   * On the rpi, use `curl https://house.domain.com/resources/room/lamp` to read the value of the red LED and relay.
@@ -67,10 +75,35 @@ Test
 
 ## Connecting it to Google Assistent
 
-Configuration
+Configuration:
 
-* use 
+* On IFTTT, create a new applet (Profile Dropdown » New Applet)
+  * Start by specifying a trigger by clicking the +this and selecting “Google Assistant” from the list of services.
+    * Click Connect to authorize IFTTT to manage voice commands
+    * Click Say a phrase with a text ingredient, and fill in the trigger fields:
+    * What do you want to say? = turn light $
+    * What’s another way to say it? = switch light $
+    * What do you want the Assistant to say in response? = turning light $
+    * Press Create Trigger
+  * Specify the Action by clicking the +that.
+    * Choose action service = Select “Webhooks” and press Connect
+    * Choose action = Make a web request
+    * Fill in the action fields
+    * URL = https://house.domain.com/resources/room/lamp
+    * Method = PUT
+    * Content Type = text/plain
+    * Message = {{TextField}}
+    * Press Create Action
+  * Press Finish
 
+Testing:
+
+* Using a phone, involve the Google Assistent and say "turn light on".  The red LED and relay should turn on.
+* Using a phone, involve the Google Assistent and say "turn light off".  The red LED and relay should turn off.
+
+## Diagnostic
+
+Status codes, indicated by blinking the green LED
 
 	STATUS_OK = 0,
 	STATUS_NO_MQTT = 1,
@@ -79,16 +112,5 @@ Configuration
 	STATUS_RESTART = 4,
 	STATUS_RESET = 5
 
-Assumptions:
-
-* ability to flash new firmware.  the lThe common pins of the rotary encoder are connected to ground, and the remaining pins to GPIO ports
-
-![Rotary encoder](media/rotrencoder.png)
-
-Many sketches exist for the Arduino UNO, most of them only supporting a single rotary encoder.   I borrowed from [one of them](http://www.instructables.com/id/Improved-Arduino-Rotary-Encoder-Reading/), and adapted it for Arduino/Genuino 101.
-
-The challenge was for the interrupt service routines to invoke a C++ Class Member Function.  The solution chosen relies on virtual functions and friend classes used as described in the article [Interrupts in C++](http://www.embedded.com/design/prototyping-and-development/4023817/Interrupts-in-C-) by Alan Dorfmeyer and Pat Baird.
-
-![Rotary encoder](schematic/schematic.png)
 
 More projects can be found at [coertvonk.com](http://www.coertvonk.com/technology/embedded).
