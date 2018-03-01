@@ -19,6 +19,13 @@ Hardware:
 * connect a 3.3V power supply to the VCC and GND pins
 * [hardware details](https://www.itead.cc/wiki/S20_Smart_Socket)
 
+Libraries
+
+* Tzapu's [WiFiManager](https://github.com/tzapu/WiFiManager)
+* Knolleary's [pubsubclient](https://github.com/knolleary/pubsubclient)
+* Bblanchon's [ArduinoJson](https://github.com/bblanchon/ArduinoJson)
+* Coert Vonk's [esp8266-fatal](https://github.com/cvonk/esp8266-fatal)
+  
 Compile:
 
 * clone or download this repository
