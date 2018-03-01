@@ -45,6 +45,9 @@
 #include "wificonnect.h"
 #include "statusled.h"
 
+#pragma GCC diagnostic error "-Wall"
+#pragma GCC diagnostic error "-Wextra"
+
 /*
  * Vars
  */
@@ -239,6 +242,7 @@ _mqtt_reconnect(void)  // an async alternative is mqtt_reconnect_nonblocking
 static void
 _mqtt_callback(char * topic, byte * payload, unsigned int length)
 {
+	(void)topic;
 	_setRelay(strncasecmp((char *)payload, "on", length) == 0);
 	_showStatus();
 }
