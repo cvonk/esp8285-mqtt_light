@@ -67,6 +67,10 @@ struct {
 	"mqtt.vonk", "1883", "", "", "room/lamp"  // default values
 };
 
+static void _showStatus(void);
+static void _restart(void);
+static void _reset(void);
+	
 
 /*
  * GPIO
@@ -86,8 +90,6 @@ _setRelay(bool const value) {
 	digitalWrite(REDLED_AND_RELAY_PIN, value);
 }
 
-static void _showStatus(void);
-	
 static void 
 _toggleRelay(void) {
 	Serial.println("toggle relay");
