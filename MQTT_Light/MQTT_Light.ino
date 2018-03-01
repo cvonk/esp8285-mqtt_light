@@ -50,7 +50,7 @@
 #pragma GCC diagnostic ignored "-Wpedantic"
 
 /*
- * Vars
+ * Vars 
  */
 
 struct {
