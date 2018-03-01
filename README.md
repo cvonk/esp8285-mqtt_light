@@ -1,11 +1,11 @@
-# Sonoff S20 + MQTT  [![Build Status](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg?branch=master)](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg/)
+# Itead Sonoff S20 + MQTT  [![Build Status](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg?branch=master)](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg/)
 
-This is a follow-up from [Talk to your CD player using Google Home](https://coertvonk.com/sw/embedded/google-home-ifttt-esp8266-integration-23066).  This time we use the light and elegant MQTT protocol to control a S20 power switch.
+This is a follow-up from [Talk to your CD player using Google Home](https://coertvonk.com/sw/embedded/google-home-ifttt-esp8266-integration-23066).  This time we use the light and elegant MQTT protocol to control a Itead Sonoff S20 power switch.
 
 Features:
 
 * initial configuration using WiFi AP mode (WiFiManager)
-* resillent to WiFi and MQTT broker outages
+* resilient to WiFi and MQTT broker outages
 * clear status codes using green LED
 
 ## Control your $10 Sonoff S20 using MQTT
@@ -35,7 +35,7 @@ Configuration:
 * initially, the green LED will blink 3 times every second to indicate that it is in WiFi AP mode for configuration
 * use your phone or laptop to connect to the ESP* access point, this should bring you to the configuration page. (if not, browse to  192.168.4.1 by hand)
 * using the web page, configure WiFi SSID and password, and MQTT parameters.  Let's assume the topic is "room/lamp".
-* this should connect the ESP to your usual WiFi.  The green LED will first blink 2 times (every second) to indicate that it is connecting to the your WiFi router. 
+* this should connect the ESP to your usual WiFi.  The green LED will first blink 2 times (every second) to indicate that it is connecting to your WiFi router. 
 * once connected to WiFi, the green LED will change to 1 blink (every second) to indicate it is connecting to the MQTT broker.
 * run Eclipse "ponte" on e.g. raspberry pi (rpi).  "ponte" is a MQTT broker, but can also be accessed using HTTP
 * once connected to the MQTT broker, the green LED will go off.
@@ -74,7 +74,7 @@ Testing:
 * HTTP PUT   
    * On the rpi, use `curl -X PUT -d on https://house.domain.com/resources/room/lamp` to set the value of the red LED and relay.
 
-## Connecting it to Google Assistent
+## Connecting it to Google Assistant
 
 Configuration:
 
@@ -101,6 +101,7 @@ Testing:
 
 * Using a phone, involve the Google Assistent and say "turn light on".  The red LED and relay should turn on.
 * Using a phone, involve the Google Assistent and say "turn light off".  The red LED and relay should turn off.
+* Try the same with a Google Home device.
 
 ## Diagnostic
 
