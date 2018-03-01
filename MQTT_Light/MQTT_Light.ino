@@ -80,26 +80,26 @@ uint8_t const BUTTON_PIN = 0;
 uint8_t const GREENLED_PIN = 13;  /* on when 0 */
 uint8_t const REDLED_AND_RELAY_PIN = 12;
 
-static int
+static boolean
 _getRelay(void) {
 	return digitalRead(REDLED_AND_RELAY_PIN);
 }
 
 static void 
-_setRelay(bool const value) {
+_setRelay(boolean const value) {
 	digitalWrite(REDLED_AND_RELAY_PIN, value);
 }
 
 static void 
 _toggleRelay(void) {
 	Serial.println("toggle relay");
-	bool const value = !_getRelay();
+	boolean const value = !_getRelay();
 	_setRelay(value);
 	_mqtt.client.publish(_mqtt.topic, value ? "on" : "off");
 	_showStatus();
 }
 
-static bool volatile _buttonChanged; 
+static boolean volatile _buttonChanged; 
 
 static void _buttonChangedISR(void) {
 	_buttonChanged = true;
@@ -251,8 +251,8 @@ _mqtt_callback(char * topic, byte * payload, unsigned int length)
 static void
 _showStatus(void)
 {
-	bool const wifiConnected = WiFi.status() == WL_CONNECTED;
-	bool const mqttConnected = _mqtt.client.connected();
+	boolean const wifiConnected = WiFi.status() == WL_CONNECTED;
+	boolean const mqttConnected = _mqtt.client.connected();
 	char const * const connecting = " (connecting)";
 	time_t now = time(nullptr);
 	Serial.printf("%.19s, ", ctime(&now));
