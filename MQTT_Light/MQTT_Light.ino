@@ -99,7 +99,7 @@ _toggleRelay(void) {
 	_showStatus();
 }
 
-static bool volatile _buttonChanged;
+static bool volatile _buttonChanged; 
 
 static void _buttonChangedISR(void) {
 	_buttonChanged = true;
