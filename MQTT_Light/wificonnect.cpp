@@ -30,7 +30,7 @@ configModeCallback(WiFiManager *myWiFiManager)
 
 // called when WiFiManager exists configuration mode
 void
-configSaveCallback()
+configSaveCallback(void)
 {
 	Serial.println("Save config");
 	WiFiConnect::shouldSaveConfig = true;
@@ -135,7 +135,7 @@ WiFiConnect::begin(WiFiManagerParameter *params, void(*saveParamFunc)(void))
 
 
 uint8_t const
-WiFiConnect::handle() 
+WiFiConnect::handle(void) 
 {
 	ArduinoOTA.handle();
 	server.handleClient();
