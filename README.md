@@ -1,6 +1,6 @@
-# Itead Sonoff S20 + MQTT  [![Build Status](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg?branch=master)](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg/)
+# Itead Sonoff S20 + MQTT + Google Assistant [![Build Status](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg?branch=master)](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg/)
 
-This is a follow-up from [Talk to your CD player using Google Home](https://coertvonk.com/sw/embedded/google-home-ifttt-esp8266-integration-23066).  This time we use the light and elegant MQTT protocol to control a Itead Sonoff S20 power switch.
+This is a follow-up from [Talk to your CD player using Google Home](https://coertvonk.com/sw/embedded/google-home-ifttt-esp8266-integration-23066).  This time aroud, we use the light and elegant MQTT protocol to control a Itead Sonoff S20 power switch. To top it off, we hook it up to the Google Assistant eco system.
 
 Features:
 
