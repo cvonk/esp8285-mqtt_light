@@ -1,4 +1,4 @@
-# Rotary Encoder for Arduino101  [![Build Status](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg?branch=master)](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg/)
+# Sonoff S20 + MQTT  [![Build Status](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg?branch=master)](https://travis-ci.org/cvonk/esp8285-MQTT_light.svg/)
 
 This is a follow-up from [Talk to your CD player using Google Home](https://coertvonk.com/sw/embedded/google-home-ifttt-esp8266-integration-23066).  This time we use the light and elegant MQTT protocol to control a S20 power switch.
 
@@ -14,9 +14,10 @@ This firmware lets you control the Sonoff S20 using the MQTT protocol.  Indirect
 
 Hardware:
 
+* do not connect to mains while the cover is off!
 * connect a FTDI interface to the RX, TX and GND pins
 * connect a 3.3V power supply to the VCC and GND pins
-* do not connect to mains while the cover is off
+* [hardware details](https://www.itead.cc/wiki/S20_Smart_Socket)
 
 Compile:
 
