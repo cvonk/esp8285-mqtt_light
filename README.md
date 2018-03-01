@@ -125,6 +125,6 @@ Status codes, indicated by blinking the green LED
 
 ## Next
 
-The logical next step would be to connect to Google Cloud IoT, AWS IoT or Amazon IoT.  For this I might opt to use Mongoose OS on a ESP32.
+The logical next step would be to connect to [Google Cloud IoT](https://cloud.google.com/iot-core/), AWS IoT or even Amazon IoT.  For this, I might opt to use the off the shelf Mongoose OS on a ESP32.
 
 More projects can be found at [coertvonk.com](http://www.coertvonk.com/technology/embedded).
