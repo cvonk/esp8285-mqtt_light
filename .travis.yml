@@ -18,7 +18,7 @@ install:
   - arduino --install-boards esp8266:esp8266
   - arduino --board esp8266:esp8266:generic --save-prefs
 script:
-  - arduino --verify --board esp8266:esp8266:generic $PWD/mqtt_light/mqtt_light.ino
+  - arduino --verify --board esp8266:esp8266:generic $PWD/esp8285-mqtt_light/MQTT_Light/MQTT_Light.ino
 notifications:
   email:
     on_success: change
