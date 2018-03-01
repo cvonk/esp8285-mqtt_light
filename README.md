@@ -39,17 +39,37 @@ Configuration:
 
 Testing :
 
-* use Eclipse mosquitto_sub on a rpi to subscribe to the MQTT topic. Press the button on the S20, and the red LED and relay should go on and the mosquitto_sub should show the value "on".  Press the button again to power it off.
-* use Eclipse mosquitto_pub on a rpi to publish the value "on" to the MQTT topic.  The red LED and relay should go on.
-* use Eclipse mosquitto_pub on a rpi to publish the value "off" to the MQTT topic.  The red LED and relay should go off.
+* MQTT subscribe
+   * Use Eclipse `mosquitto_sub -t room/lamp` on a rpi to subscribe to the MQTT topic. 
+   * Press the button on the S20, and the red LED and relay should go on and the `mosquitto_sub` should show the value "on".
+   * Press the button again to power it off.
+* MQTT publish
+   * Use Eclipse `mosquitto_pub -t room/lamp -m on` to turn the red LED and relay on.
+   * Use Eclipse `mosquitto_pub -t room/lamp -m off` to turn them off.
+* HTTP GET
+   * On the rpi, use `curl http://localhost:3000/resources/room/lamp` to read the value of the red LED and relay.
+* HTTP PUT   
+   * On the rpi, use `curl -X PUT -d on http://localhost:3000/resources/room/lamp` to set the value of the red LED and relay.
 
 ## Making it available to the internet
 
 Configuration
 
-* on your router use the remote proxy pound with e.g. a LetsEncrypt certificate, to translate between HTTPS and HTTP, and route the traffic URLs starting with /resources to ponte.  See [pound and letsencrypt](https://coertvonk.com/sw/networking/dd-wrt-reverse-proxy-https-asus-rt-ac68-pound-letsencrypt-23660).
-* 
+* Create an A record on a DNS server to point to your router, or use a DDNS name.  E.g. "house.domain.com".
+* On your router use the remote proxy pound with e.g. a LetsEncrypt certificate, to translate between HTTPS and HTTP, and route the traffic URLs "//resources.*" to port 3000 on the rpi.  [pound and letsencrypt](https://coertvonk.com/sw/networking/dd-wrt-reverse-proxy-https-asus-rt-ac68-pound-letsencrypt-23660).  Add "xHTTP 1" inside the "ListenHTTPS" in the `pound.pt1` configuration file to allow for HTTP GET.
 
+Test
+
+* HTTP GET
+  * On the rpi, use `curl https://house.domain.com/resources/room/lamp` to read the value of the red LED and relay.
+* HTTP PUT   
+   * On the rpi, use `curl -X PUT -d on https://house.domain.com/resources/room/lamp` to set the value of the red LED and relay.
+
+## Connecting it to Google Assistent
+
+Configuration
+
+* use 
 
 
 	STATUS_OK = 0,
